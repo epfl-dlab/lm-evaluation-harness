@@ -8,8 +8,10 @@
 
 Use `jsonschema_bench` tag to run all three tasks.
 
-N.B.
-The `easy` task requires a context window of 2048 tokens, the `medium` task requires a context window of xxx tokens, and the `hard` task requires a context window of xxx tokens.
+## ⚠️  Context Window Size
+The `easy` task requires a context window of 4K tokens, the `medium` task requires a context window of 28K tokens, and the `hard` task requires a context window of 32K tokens.
+
+If you don't have enough memory to run the `hard` task, you can use the `--max_length` flag to reduce the context window size but this will truncate the schema and will lead to lower performance.
 
 ## Paper
 
