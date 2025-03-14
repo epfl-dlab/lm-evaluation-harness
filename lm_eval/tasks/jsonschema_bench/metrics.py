@@ -27,7 +27,6 @@ def is_json_schema_valid(schema: dict):
         jsonschema.Draft202012Validator.check_schema(schema)
         return True
     except jsonschema.SchemaError as e:
-        # logger.error(f"SchemaError: The JSON schema is invalid. {e.message}")
         return False
 
 
@@ -86,8 +85,8 @@ def schema_compliance(references: list[str], predictions: list[str]) -> bool:
 
     try:
         schema_conform = schema_conform_with_format_checker(json_obj, json_schema)
-    except ValidationError as e:
-        eval_logger.error(f"ValidationError: {e.message}")
+    except Exception as e:
+        eval_logger.error(f"Error: {e}")
         return False
 
     return schema_conform
