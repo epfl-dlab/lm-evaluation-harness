@@ -4,6 +4,7 @@ import logging
 import ipaddress
 from typing import Dict, Any
 import json
+from transformers import AutoTokenizer
 
 # check if jsonschema is installed
 try:
@@ -79,7 +80,7 @@ def schema_compliance(references: list[str], predictions: list[str]) -> bool:
     
     json_schema = json.loads(reference.strip())
     try:
-        json_obj = json.loads(prediction.strip())
+        json_obj = json.loads(prediction.strip().strip("```").strip("json"))
     except json.JSONDecodeError:
         return False
 
@@ -95,7 +96,8 @@ def json_validity(references: list[str], predictions: list[str]) -> bool:
     assert len(predictions) == 1, "Currently, we don't support pass@k for JSON schema validation."
     prediction = predictions[0]  # Since predictions is a list of lists
     try:
-        json_obj = json.loads(prediction.strip())
+        json_obj = json.loads(prediction.strip().strip("```").strip("json").strip())
     except json.JSONDecodeError:
         return False
     return True
+
